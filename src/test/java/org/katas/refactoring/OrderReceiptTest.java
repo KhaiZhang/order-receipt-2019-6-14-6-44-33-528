@@ -64,5 +64,11 @@ public class OrderReceiptTest {
         double output = receipt.getTotalAmount(new LineItem("chocolate", 20.0, 1));
         Assertions.assertEquals(22.0,output);
     }
+    @Test
+    public void shouldPrintStateTax() {
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, null));
+        String stateTax = receipt.getStateTax(22.0);
+        assertThat(stateTax).contains("Sales Tax"+'\t'+22.0);
+    }
 
 }
