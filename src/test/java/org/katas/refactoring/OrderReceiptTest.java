@@ -27,7 +27,7 @@ public class OrderReceiptTest {
         }};
         OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
 
-        String output = receipt.printReceipt();
+        String output = receipt.getLineItemAndSalesTax();
 
         assertThat(output).contains(
                 "milk\t10.0\t2\t20.0\n",
@@ -36,6 +36,17 @@ public class OrderReceiptTest {
                 "Sales Tax\t6.5",
                 "Total Amount\t71.5"
         );
+    }
+
+    @Test
+    public void shouldPrinHeaderOnOrder() {
+        //Given
+        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
+        OrderReceipt receipt = new OrderReceipt(order);
+        //When
+        String headers =receipt.getPrintHeader();
+        //Then
+        assertThat(headers).contains("======Printing Orders======\n");
     }
 
     @Test
