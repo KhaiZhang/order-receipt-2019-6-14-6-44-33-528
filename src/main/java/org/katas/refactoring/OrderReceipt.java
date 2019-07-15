@@ -19,11 +19,11 @@ public class OrderReceipt {
 
         output.append(getPrintHeader());
 
-        // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
-        output.append(o.getCustomerName());
-        output.append(o.getCustomerAddress());
-//        output.append(order.getCustomerLoyaltyNumber());
+
+
+        output.append(getCustomNameAndAddress());
+
+
 
         // prints lineItems
         double totSalesTx = 0d;
@@ -57,4 +57,10 @@ public class OrderReceipt {
     public String getPrintHeader() {
         return "======Printing Orders======\n";
     }
+
+    public String getCustomNameAndAddress() {
+        return o.getCustomerName()+o.getCustomerAddress();
+    }
+
+
 }

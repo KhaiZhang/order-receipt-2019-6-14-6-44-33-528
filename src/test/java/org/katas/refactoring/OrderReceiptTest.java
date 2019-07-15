@@ -13,7 +13,7 @@ public class OrderReceiptTest {
         Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
         OrderReceipt receipt = new OrderReceipt(order);
 
-        String output = receipt.printReceipt();
+        String output = receipt.getCustomNameAndAddress();
 
         assertThat(output).contains("Mr X", "Chicago, 60601");
     }
@@ -48,5 +48,6 @@ public class OrderReceiptTest {
         //Then
         assertThat(headers).contains("======Printing Orders======\n");
     }
+
 
 }
