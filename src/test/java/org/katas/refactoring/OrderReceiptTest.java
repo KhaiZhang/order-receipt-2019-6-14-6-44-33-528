@@ -1,10 +1,12 @@
 package org.katas.refactoring;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 
 public class OrderReceiptTest {
@@ -50,14 +52,10 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void shouldPrinHeaderOnOrder() {
-        //Given
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
-        OrderReceipt receipt = new OrderReceipt(order);
-        //When
-        String headers =receipt.getPrintHeader();
-        //Then
-        assertThat(headers).contains("======Printing Orders======\n");
+    public void shouldCalculateSalesTaxInformation() {
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, null));
+        double output = receipt.getSalesTax(new LineItem("chocolate", 20.0, 1));
+        Assertions.assertEquals(2.0,output);
     }
 
 
