@@ -45,11 +45,10 @@ public class OrderReceipt {
             output.append(lineItem.totalAmount());
             output.append('\n');
             totSalesTx += getSalesTax(lineItem);
-            tot += getTotalAmount(lineItem);
+            tot += getAmount(lineItem);
         }
         output.append(getStateTax(totSalesTx));
-        // print total amount
-        output.append("Total Amount").append('\t').append(tot);
+        output.append(getTotalAmount(tot));
         return output.toString();
     }
 
@@ -58,11 +57,15 @@ public class OrderReceipt {
 
     }
 
-    public double getTotalAmount(LineItem lineItem) {
+    public double getAmount(LineItem lineItem) {
         return lineItem.totalAmount() + getSalesTax(lineItem);
     }
 
     public String getStateTax(double totSalesTx) {
         return "Sales Tax"+'\t'+totSalesTx;
+    }
+
+    public String getTotalAmount(double tot) {
+        return "Total Amount"+'\t'+tot;
     }
 }
