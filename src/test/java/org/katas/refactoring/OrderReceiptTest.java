@@ -77,4 +77,12 @@ public class OrderReceiptTest {
         assertThat(tot).contains("Total Amount"+'\t'+22.0);
     }
 
+    @Test
+    public void shouldPrintLineItem() {
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, null));
+        LineItem lineItem = new LineItem("chocolate", 20.0, 1);
+        String result = receipt.getLineItem(lineItem);
+        assertThat(result).contains("chocolate\t20.0\t1\t20.0\n");
+    }
+
 }
