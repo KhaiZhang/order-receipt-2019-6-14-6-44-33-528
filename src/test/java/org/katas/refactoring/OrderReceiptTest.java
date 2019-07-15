@@ -58,5 +58,11 @@ public class OrderReceiptTest {
         Assertions.assertEquals(2.0,output);
     }
 
+    @Test
+    public void shouldCalculateTotalAmount() {
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, null));
+        double output = receipt.getTotalAmount(new LineItem("chocolate", 20.0, 1));
+        Assertions.assertEquals(22.0,output);
+    }
 
 }
