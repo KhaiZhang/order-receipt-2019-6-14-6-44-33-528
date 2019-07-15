@@ -38,4 +38,15 @@ public class OrderReceiptTest {
         );
     }
 
+    @Test
+    public void shouldPrinHeaderOnOrder() {
+        //Given
+        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
+        OrderReceipt receipt = new OrderReceipt(order);
+        //When
+        String headers =receipt.getPrintHeader();
+        //Then
+        assertThat(headers).contains("======Printing Orders======\n");
+    }
+
 }
