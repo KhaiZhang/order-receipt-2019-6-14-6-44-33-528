@@ -46,12 +46,12 @@ public class OrderReceipt {
     }
 
     public double getSalesTax(LineItem lineItem) {
-        return lineItem.totalAmount() * .10;
+        return lineItem.getTotalAmount() * .10;
 
     }
 
     public double getAmount(LineItem lineItem) {
-        return lineItem.totalAmount() + getSalesTax(lineItem);
+        return lineItem.getTotalAmount() + getSalesTax(lineItem);
     }
 
     public String getStateTax(double totSalesTx) {
@@ -64,6 +64,6 @@ public class OrderReceipt {
 
     public String getLineItem(LineItem lineItem) {
         return lineItem.getDescription() + '\t' + lineItem.getPrice() +
-                '\t'+ lineItem.getQuantity() + '\t' + lineItem.totalAmount() + '\n';
+                '\t'+ lineItem.getQuantity() + '\t' + lineItem.getTotalAmount() + '\n';
     }
 }
