@@ -1,6 +1,7 @@
 package org.katas.refactoring;
 
 import javax.sound.sampled.Line;
+import java.util.List;
 
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
@@ -18,8 +19,10 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
         output.append(getPrintHeader());
-        output.append(getCustomNameAndAddress());
+        output.append(o.getCustomerName()+o.getCustomerAddress());
         output.append(getLineItemAndSalesTax());
+        output.append("Sales Tax"+'\t'+ getSalesTax(o.getLineItems()));
+        output.append("Total Amount" + '\t' + getAmount(o.getLineItems()));
         return output.toString();
     }
 
@@ -27,40 +30,27 @@ public class OrderReceipt {
         return "======Printing Orders======\n";
     }
 
-    public String getCustomNameAndAddress() {
-        return o.getCustomerName()+o.getCustomerAddress();
-    }
 
     public String getLineItemAndSalesTax() {
         StringBuilder output = new StringBuilder();
-        double totSalesTx = 0d;
-        double tot = 0d;
         for (LineItem lineItem : o.getLineItems()) {
             output.append(getLineItem(lineItem));
-            totSalesTx += getSalesTax(lineItem);
-            tot += getAmount(lineItem);
         }
-        output.append(getStateTax(totSalesTx));
-        output.append(getTotalAmount(tot));
         return output.toString();
     }
 
-    public double getSalesTax(LineItem lineItem) {
-        return lineItem.getTotalAmount() * .10;
+    public double getSalesTax(List<LineItem> lineItems) {
+        double sum = lineItems.stream().mapToDouble(LineItem::getTotalAmount).sum();
+        final double taxRate = 0.1d;
+        return sum * taxRate;
 
     }
 
-    public double getAmount(LineItem lineItem) {
-        return lineItem.getTotalAmount() + getSalesTax(lineItem);
+    public double getAmount(List<LineItem> lineItems) {
+        double sum = lineItems.stream().mapToDouble(LineItem::getTotalAmount).sum();
+        return sum + getSalesTax(lineItems);
     }
 
-    public String getStateTax(double totSalesTx) {
-        return "Sales Tax"+'\t'+totSalesTx;
-    }
-
-    public String getTotalAmount(double tot) {
-        return "Total Amount" + '\t' + tot;
-    }
 
     public String getLineItem(LineItem lineItem) {
         return lineItem.getDescription() + '\t' + lineItem.getPrice() +
