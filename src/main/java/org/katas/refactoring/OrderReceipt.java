@@ -10,19 +10,19 @@ import java.util.List;
  * total sales tax) and prints it.
  */
 public class OrderReceipt {
-    private Order o;
+    private Order order;
 
-    public OrderReceipt(Order o) {
-        this.o = o;
+    public OrderReceipt(Order order) {
+        this.order = order;
     }
 
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
         output.append(getPrintHeader());
-        output.append(o.getCustomerName()+o.getCustomerAddress());
+        output.append(order.getCustomerName()+order.getCustomerAddress());
         output.append(getLineItemAndSalesTax());
-        output.append("Sales Tax"+'\t'+ getSalesTax(o.getLineItems()));
-        output.append("Total Amount" + '\t' + getAmount(o.getLineItems()));
+        output.append("Sales Tax"+'\t'+ getSalesTax(order.getLineItems()));
+        output.append("Total Amount" + '\t' + getAmount(order.getLineItems()));
         return output.toString();
     }
 
@@ -33,7 +33,7 @@ public class OrderReceipt {
 
     public String getLineItemAndSalesTax() {
         StringBuilder output = new StringBuilder();
-        for (LineItem lineItem : o.getLineItems()) {
+        for (LineItem lineItem : order.getLineItems()) {
             output.append(getLineItem(lineItem));
         }
         return output.toString();
